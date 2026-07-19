@@ -44,7 +44,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       context: context,
       barrierDismissible: true,
       barrierLabel: 'Dismiss',
-      barrierColor: Colors.black.withOpacity(0.6),
+      barrierColor: Colors.black.withValues(alpha: 0.6),
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, animation, secondaryAnimation) {
         return const Center(
@@ -79,7 +79,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
-            BoxShadow(color: const Color(0xFF6A1028).withOpacity(0.35), blurRadius: 12, offset: const Offset(0, 4)),
+            BoxShadow(color: const Color(0xFF6A1028).withValues(alpha: 0.35), blurRadius: 12, offset: const Offset(0, 4)),
           ],
         ),
         child: FloatingActionButton.extended(
@@ -140,7 +140,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
-                            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
+                            BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
                           ],
                         ),
                         child: TextField(
@@ -168,7 +168,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: Colors.grey.shade200),
                         boxShadow: [
-                          BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 8, offset: const Offset(0, 2)),
+                          BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 8, offset: const Offset(0, 2)),
                         ],
                       ),
                       child: Row(
@@ -212,12 +212,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               color: isSelected ? const Color(0xFF6A1028) : Colors.white,
                               borderRadius: BorderRadius.circular(100),
                               border: Border.all(
-                                color: isSelected ? const Color(0xFF6A1028) : const Color(0xFF6A1028).withOpacity(0.4),
+                                color: isSelected ? const Color(0xFF6A1028) : const Color(0xFF6A1028).withValues(alpha: 0.4),
                                 width: 1.5,
                               ),
                               boxShadow: isSelected
-                                  ? [BoxShadow(color: const Color(0xFF6A1028).withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))]
-                                  : [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4, offset: const Offset(0, 2))],
+                                  ? [BoxShadow(color: const Color(0xFF6A1028).withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 4))]
+                                  : [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 4, offset: const Offset(0, 2))],
                             ),
                             child: Material(
                               color: Colors.transparent,
@@ -263,10 +263,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                                 boxShadow: [
-                                  BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 16),
+                                  BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 16),
                                 ],
                               ),
-                              child: Icon(Icons.inventory_2_outlined, size: 64, color: const Color(0xFF6A1028).withOpacity(0.2)),
+                              child: Icon(Icons.inventory_2_outlined, size: 64, color: const Color(0xFF6A1028).withValues(alpha: 0.2)),
                             ),
                             const SizedBox(height: 24),
                             Text('No products found', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
@@ -297,7 +297,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
-                                BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 16, offset: const Offset(0, 4)),
+                                BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 16, offset: const Offset(0, 4)),
                               ],
                             ),
                             child: Material(
@@ -357,10 +357,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                                 Container(
                                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                                   decoration: BoxDecoration(
-                                                    color: isActive ? const Color(0xFF6A1028).withOpacity(0.09) : Colors.grey.shade100,
+                                                    color: isActive ? const Color(0xFF6A1028).withValues(alpha: 0.09) : Colors.grey.shade100,
                                                     borderRadius: BorderRadius.circular(100),
                                                     border: Border.all(
-                                                      color: isActive ? const Color(0xFF6A1028).withOpacity(0.25) : Colors.grey.shade300,
+                                                      color: isActive ? const Color(0xFF6A1028).withValues(alpha: 0.25) : Colors.grey.shade300,
                                                       width: 1,
                                                     ),
                                                   ),
@@ -393,10 +393,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                                 Container(
                                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                                   decoration: BoxDecoration(
-                                                    color: isActive ? Colors.green.withOpacity(0.08) : Colors.grey.shade100,
+                                                    color: isActive ? Colors.green.withValues(alpha: 0.08) : Colors.grey.shade100,
                                                     borderRadius: BorderRadius.circular(100),
                                                     border: Border.all(
-                                                      color: isActive ? Colors.green.withOpacity(0.3) : Colors.grey.shade300,
+                                                      color: isActive ? Colors.green.withValues(alpha: 0.3) : Colors.grey.shade300,
                                                       width: 1,
                                                     ),
                                                   ),
@@ -452,7 +452,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         color: const Color(0xFFF3EEE8),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Center(child: Icon(Icons.image_outlined, color: const Color(0xFF6A1028).withOpacity(0.2), size: 32)),
+      child: Center(child: Icon(Icons.image_outlined, color: const Color(0xFF6A1028).withValues(alpha: 0.2), size: 32)),
     );
   }
 }
@@ -470,7 +470,7 @@ class ProductDetailsScreen extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierLabel: 'Dismiss',
-      barrierColor: Colors.black.withOpacity(0.6),
+      barrierColor: Colors.black.withValues(alpha: 0.6),
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, animation, secondaryAnimation) {
         return Center(
@@ -578,7 +578,7 @@ class ProductDetailsScreen extends StatelessWidget {
         leading: IconButton(
           icon: Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: Colors.black.withOpacity(0.25), shape: BoxShape.circle),
+            decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.25), shape: BoxShape.circle),
             child: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18),
           ),
           onPressed: () => Navigator.pop(context),
@@ -587,7 +587,7 @@ class ProductDetailsScreen extends StatelessWidget {
           IconButton(
             icon: Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.red.shade600.withOpacity(0.9), shape: BoxShape.circle),
+              decoration: BoxDecoration(color: Colors.red.shade600.withValues(alpha: 0.9), shape: BoxShape.circle),
               child: const Icon(Icons.delete_outline, color: Colors.white, size: 18),
             ),
             tooltip: 'Delete Product',
@@ -675,9 +675,9 @@ class ProductDetailsScreen extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF6A1028).withOpacity(0.09),
+                                  color: const Color(0xFF6A1028).withValues(alpha: 0.09),
                                   borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(color: const Color(0xFF6A1028).withOpacity(0.25), width: 1),
+                                  border: Border.all(color: const Color(0xFF6A1028).withValues(alpha: 0.25), width: 1),
                                 ),
                                 child: Text(
                                   category,
@@ -694,7 +694,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(24),
-                              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 20, offset: const Offset(0, 10))],
+                              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.03), blurRadius: 20, offset: const Offset(0, 10))],
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -752,10 +752,10 @@ class ProductDetailsScreen extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: isActive ? Colors.green.withOpacity(0.1) : Colors.grey.shade200,
+                                  color: isActive ? Colors.green.withValues(alpha: 0.1) : Colors.grey.shade200,
                                   borderRadius: BorderRadius.circular(100),
                                   border: Border.all(
-                                    color: isActive ? Colors.green.withOpacity(0.35) : Colors.grey.shade300,
+                                    color: isActive ? Colors.green.withValues(alpha: 0.35) : Colors.grey.shade300,
                                     width: 1,
                                   ),
                                 ),
@@ -782,7 +782,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(24),
-                                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 20)],
+                                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 20)],
                               ),
                               child: Column(
                                 children: [
@@ -797,7 +797,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(24),
-                                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 20, offset: const Offset(0, 10))],
+                                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.03), blurRadius: 20, offset: const Offset(0, 10))],
                               ),
                               child: ListView.separated(
                                 shrinkWrap: true,
@@ -818,7 +818,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         Container(
                                           padding: const EdgeInsets.all(12),
                                           decoration: BoxDecoration(
-                                            color: const Color(0xFF6A1028).withOpacity(0.05),
+                                            color: const Color(0xFF6A1028).withValues(alpha: 0.05),
                                             borderRadius: BorderRadius.circular(12),
                                           ),
                                           child: const Icon(Icons.eco_outlined, color: Color(0xFF6A1028), size: 20),
@@ -1147,8 +1147,15 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
   @override
   Widget build(BuildContext context) {
     final isEdit = widget.product != null;
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        final shouldPop = await _onWillPop();
+        if (shouldPop && context.mounted) {
+          Navigator.of(context).pop(result);
+        }
+      },
       child: Material(
         color: Colors.transparent,
         child: Container(
@@ -1158,7 +1165,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
             color: const Color(0xFFFDF8F5),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.18), blurRadius: 40, offset: const Offset(0, 20)),
+              BoxShadow(color: Colors.black.withValues(alpha: 0.18), blurRadius: 40, offset: const Offset(0, 20)),
             ],
           ),
           child: Column(
@@ -1189,7 +1196,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                       },
                       child: Container(
                         padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), shape: BoxShape.circle),
+                        decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), shape: BoxShape.circle),
                         child: const Icon(Icons.close, color: Colors.white, size: 20),
                       ),
                     ),
@@ -1275,7 +1282,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                                     label: Text('Add', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 13)),
                                     style: TextButton.styleFrom(
                                       foregroundColor: const Color(0xFF6A1028),
-                                      backgroundColor: const Color(0xFF6A1028).withOpacity(0.05),
+                                      backgroundColor: const Color(0xFF6A1028).withValues(alpha: 0.05),
                                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                     ),
@@ -1295,7 +1302,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                                   ),
                                   child: Column(
                                     children: [
-                                      Icon(Icons.kitchen_outlined, size: 32, color: const Color(0xFF6A1028).withOpacity(0.3)),
+                                      Icon(Icons.kitchen_outlined, size: 32, color: const Color(0xFF6A1028).withValues(alpha: 0.3)),
                                       const SizedBox(height: 8),
                                       Text('No ingredients added', style: GoogleFonts.poppins(color: const Color(0xFF6B7280), fontSize: 13, fontWeight: FontWeight.w500)),
                                     ],
@@ -1306,7 +1313,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: _recipeRows.length,
-                                  separatorBuilder: (_, __) => const SizedBox(height: 8),
+                                  separatorBuilder: (_, _) => const SizedBox(height: 8),
                                   itemBuilder: (context, index) {
                                     final r = _recipeRows[index];
                                     return Container(
@@ -1315,7 +1322,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                                         color: const Color(0xFFFDF8F5),
                                         borderRadius: BorderRadius.circular(16),
                                         border: Border.all(color: const Color(0xFFE5E7EB)),
-                                        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.025), blurRadius: 8)],
+                                        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.025), blurRadius: 8)],
                                       ),
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1405,7 +1412,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                   color: const Color(0xFFFDF8F5),
                   borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
                   boxShadow: [
-                    BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 10, offset: const Offset(0, -4)),
+                    BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 10, offset: const Offset(0, -4)),
                   ],
                 ),
                 child: Row(

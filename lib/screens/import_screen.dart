@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart' as fp;
 import 'package:excel/excel.dart' hide Border;
 import 'package:csv/csv.dart' as csvPkg;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../core/session_manager.dart';
+
 import 'dashboard_widgets/bottom_nav.dart';
 
 enum ImportStage { pick, processing, preview, importing, success }
@@ -195,7 +195,7 @@ class _ImportScreenState extends State<ImportScreen> {
           String year = tDate.year.toString();
           String month = tDate.month.toString().padLeft(2, '0');
           String day = tDate.day.toString().padLeft(2, '0');
-          String saleID = 'sale_${year}_${month}_${day}';
+          String saleID = 'sale_${year}_${month}_$day';
 
           String branchNameRaw = rDataLower['branch']?.toString().trim() ?? '';
           String bID = branchMap[branchNameRaw.toLowerCase()] ?? branchNameRaw;

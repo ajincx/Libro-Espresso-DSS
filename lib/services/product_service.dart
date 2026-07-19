@@ -38,12 +38,12 @@ class ProductService extends FirestoreService {
 
   Future<List<ProductModel>> getProductsByBranch(String branchId) async {
     final snapshot = await firestore.collection('products').where('branchId', isEqualTo: branchId).get();
-    return snapshot.docs.map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+    return snapshot.docs.map((doc) => ProductModel.fromMap(doc.data(), doc.id)).toList();
   }
 
   Stream<List<ProductModel>> streamProductsByBranch(String branchId) {
     return firestore.collection('products').where('branchId', isEqualTo: branchId).snapshots().map(
-      (snapshot) => snapshot.docs.map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList()
+      (snapshot) => snapshot.docs.map((doc) => ProductModel.fromMap(doc.data(), doc.id)).toList()
     );
   }
 
@@ -52,7 +52,7 @@ class ProductService extends FirestoreService {
       .where('branchId', isEqualTo: branchId)
       .where('status', isEqualTo: 'active')
       .snapshots().map(
-        (snapshot) => snapshot.docs.map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList()
+        (snapshot) => snapshot.docs.map((doc) => ProductModel.fromMap(doc.data(), doc.id)).toList()
       );
   }
 }

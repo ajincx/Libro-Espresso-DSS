@@ -45,7 +45,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
     if (_session.isOwner) {
       final bQuery = await FirebaseFirestore.instance.collection('branches').get();
       setState(() {
-        _branches = ['All Branches', ...bQuery.docs.map((d) => d.id).toList()];
+        _branches = ['All Branches', ...bQuery.docs.map((d) => d.id)];
       });
     }
     await _generateAndLoadForecast();
@@ -73,11 +73,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
       
       final salesSnapshot = await salesQuery.get();
       
-      print('Total sales loaded: ${salesSnapshot.docs.length}');
-      print('Sales after branch filter: ${salesSnapshot.docs.length}');
-      
       if (salesSnapshot.docs.length < 7) {
-        print('Reason if forecast failed: Less than 7 sales records found.');
         setState(() {
           _currentForecast = null;
           _isLoading = false;
@@ -93,7 +89,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
       Map<String, double> categoryRevenues = {};
       Set<String> uniqueDates = {};
       
-      int totalItemsLoaded = 0;
+
       for (var doc in salesSnapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
         totalRevenue += (data['totalAmount'] as num?)?.toDouble() ?? 0.0;
@@ -102,14 +98,15 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
         if (data['timestamp'] != null) {
           DateTime dt;
           var dateVal = data['timestamp'];
-          if (dateVal is Timestamp) dt = dateVal.toDate();
-          else if (dateVal is DateTime) dt = dateVal;
-          else dt = DateTime.tryParse(dateVal.toString()) ?? DateTime.now();
+          if (dateVal is Timestamp) {
+            dt = dateVal.toDate();
+          } else if (dateVal is DateTime) { dt = dateVal; }
+          else { dt = DateTime.tryParse(dateVal.toString()) ?? DateTime.now(); }
           uniqueDates.add(DateFormat('yyyy-MM-dd').format(dt));
         }
 
         final items = data['items'] as List<dynamic>? ?? [];
-        totalItemsLoaded += items.length;
+
         for (var item in items) {
           if (item is! Map) {
             developer.log('[Forecast] Skipping non-map item in sale doc ${doc.id}', name: 'ForecastingScreen');
@@ -136,18 +133,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
         }
       }
       
-      print('Total sale items loaded: $totalItemsLoaded');
-      print('Categories found: ${categoryRevenues.keys.join(", ")}');
-      print('Coffee Revenue: \$${(categoryRevenues['Coffee'] ?? 0.0).toStringAsFixed(2)}');
-      print('Pastry Revenue: \$${(categoryRevenues['Pastry'] ?? 0.0).toStringAsFixed(2)}');
-      print('Meals Revenue: \$${(categoryRevenues['Meals'] ?? 0.0).toStringAsFixed(2)}');
-      print('Dessert Revenue: \$${(categoryRevenues['Dessert'] ?? 0.0).toStringAsFixed(2)}');
-      print('Others Revenue: \$${(categoryRevenues['Others'] ?? 0.0).toStringAsFixed(2)}');
-      print('Forecast by Category generated successfully.');
-      
-      print('Unique sales dates: ${uniqueDates.length}');
-      
-      int daysDivisor = uniqueDates.length > 0 ? uniqueDates.length : 1;
+      int daysDivisor = uniqueDates.isNotEmpty ? uniqueDates.length : 1;
       
       double dailyRev = totalRevenue / daysDivisor;
       double dailyOrders = totalOrders / daysDivisor;
@@ -183,7 +169,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
       final prodsSnapshot = await db.collection('products').get();
       Map<String, List<dynamic>> productRecipes = {};
       for (var p in prodsSnapshot.docs) {
-        final pData = p.data() as Map<String, dynamic>;
+        final pData = p.data();
         final prodName = (pData['productName'] as String?) ?? '';
         if (prodName.isEmpty) {
           developer.log('[Forecast] Product doc ${p.id} has null/empty productName', name: 'ForecastingScreen');
@@ -210,7 +196,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
       final invSnapshot = await db.collection('inventory').get();
       Map<String, double> currentStocks = {};
       for (var inv in invSnapshot.docs) {
-        final invData = inv.data() as Map<String, dynamic>;
+        final invData = inv.data();
         final invIngName = (invData['ingredientName'] as String?) ?? '';
         if (invIngName.isEmpty) {
           developer.log('[Forecast] Inventory doc ${inv.id} has null/empty ingredientName', name: 'ForecastingScreen');
@@ -651,7 +637,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
 
   Widget _buildDropdown(String label, List<String> items, String current,
       void Function(String?) onChanged) {
-    String _formatBranchName(String id) {
+    String formatBranchName(String id) {
       if (label != 'Branch') return id;
       switch (id) {
         case 'branch_1': return 'Main Branch';
@@ -685,7 +671,7 @@ class _ForecastingScreenState extends State<ForecastingScreen> {
             items: items
                 .map((e) => DropdownMenuItem(
                     value: e,
-                    child: Text(_formatBranchName(e),
+                    child: Text(formatBranchName(e),
                         style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

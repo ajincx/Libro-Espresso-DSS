@@ -36,9 +36,11 @@ class DashboardData {
   });
 }
 
+// Loads dashboard statistics from Firestore.
 class DashboardService {
   final DashboardRepository _repository = DashboardRepository();
 
+  // Returns a stream of aggregated dashboard data filtered by branch, month, and day.
   Stream<DashboardData> getDashboardDataStream({String? filterBranchName, String? filterBranchId, int? month, int? day}) {
     return Rx.combineLatest4(
       _repository.getSalesStream(),
@@ -199,7 +201,7 @@ class DashboardService {
           }
         }
 
-        int lowStockCount = 0;
+
         List<Map<String, dynamic>> lowInventoryAlerts = [];
         for (var doc in inventoryDocs) {
           final data = doc.data() as Map<String, dynamic>;
@@ -214,7 +216,7 @@ class DashboardService {
           int qty = (data['stock'] ?? data['quantity'] ?? 0).toInt();
           int threshold = (data['reorderLevel'] ?? data['minimumStock'] ?? 10).toInt();
           if (qty <= threshold) {
-            lowStockCount++;
+
             lowInventoryAlerts.add({'name': data['ingredientName'] ?? 'Unknown', 'qty': qty, 'threshold': threshold});
           }
         }

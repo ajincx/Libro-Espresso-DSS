@@ -26,7 +26,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   // ── Design tokens ────────────────────────────────────────────────────────
   static const _maroon = Color(0xFF6A1028);
   static const _burgundy = Color(0xFF9B1C3F);
-  static const _gold = Color(0xFFD4A853);
+
   static const _cream = Color(0xFFFDF8F5);
   static const _textPrimary = Color(0xFF1F2937);
   static const _textSecondary = Color(0xFF6B7280);
@@ -106,7 +106,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
     if (_session.isOwner) {
       final bQuery = await FirebaseFirestore.instance.collection('branches').get();
       setState(() {
-        _branches = ['All Branches', ...bQuery.docs.map((d) => d.id).toList()];
+        _branches = ['All Branches', ...bQuery.docs.map((d) => d.id)];
       });
     }
     await _loadReportData();
@@ -169,11 +169,10 @@ class _ReportsScreenState extends State<ReportsScreen> {
       }
       
       final salesSnap = await salesQ.get();
-      
-      print('=== REPORTS DEBUG ===');
-      print('Selected Branch: $_selectedBranch');
-      print('Selected Date Range: $_selectedDateRange (${dates[0]} to ${dates[1]})');
-      print('Total Documents retrieved: ${salesSnap.docs.length}');
+      debugPrint('=== REPORTS DEBUG ===');
+      debugPrint('Selected Branch: $_selectedBranch');
+      debugPrint('Selected Date Range: $_selectedDateRange (${dates[0]} to ${dates[1]})');
+      debugPrint('Total Documents retrieved: ${salesSnap.docs.length}');
       
       double tRev = 0;
       int tOrd = salesSnap.docs.length;
@@ -192,9 +191,10 @@ class _ReportsScreenState extends State<ReportsScreen> {
         
         var dateVal = d['timestamp'];
         DateTime? dt;
-        if (dateVal is Timestamp) dt = dateVal.toDate();
-        else if (dateVal is DateTime) dt = dateVal;
-        else if (dateVal is String) dt = DateTime.tryParse(dateVal);
+        if (dateVal is Timestamp) {
+          dt = dateVal.toDate();
+        } else if (dateVal is DateTime) { dt = dateVal; }
+        else if (dateVal is String) { dt = DateTime.tryParse(dateVal); }
         if (dt == null) continue;
         
         String docBranch = d['branchID'] ?? 'Unknown';
@@ -217,8 +217,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
         tRev += (d['totalAmount'] as num?)?.toDouble() ?? 0.0;
         tCogs += (d['cost'] as num?)?.toDouble() ?? 0.0;
         tProf += (d['grossProfit'] as num?)?.toDouble() ?? 0.0;
-        
-        print('Included Doc: $dt | Rev: ${(d['totalAmount'] as num?)?.toDouble() ?? 0.0} | COGS: ${(d['cost'] as num?)?.toDouble() ?? 0.0} | Profit: ${(d['grossProfit'] as num?)?.toDouble() ?? 0.0}');
+      debugPrint('Included Doc: $dt | Rev: ${(d['totalAmount'] as num?)?.toDouble() ?? 0.0} | COGS: ${(d['cost'] as num?)?.toDouble() ?? 0.0} | Profit: ${(d['grossProfit'] as num?)?.toDouble() ?? 0.0}');
         
         String mKey = DateFormat('MMM').format(dt);
         mRev[mKey] = (mRev[mKey] ?? 0.0) + ((d['totalAmount'] as num?)?.toDouble() ?? 0.0);
@@ -230,11 +229,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
         for (var item in items) {
           final pName = item['productName'] ?? 'Unknown';
           final qty = (item['quantity'] as num?)?.toInt() ?? 1;
-          final cost = (item['cost'] as num?)?.toDouble() ?? 0.0;
+
           
           double iTotal = 0.0;
-          if (item['totalPrice'] != null) iTotal = (item['totalPrice'] as num).toDouble();
-          else if (item['price'] != null) iTotal = (item['price'] as num).toDouble() * qty;
+          if (item['totalPrice'] != null) {
+            iTotal = (item['totalPrice'] as num).toDouble();
+          } else if (item['price'] != null) { iTotal = (item['price'] as num).toDouble() * qty; }
           
           String cat = item['category'] ?? 'Others';
           if (cat == 'Dessert') cat = 'Desserts';
@@ -258,12 +258,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
       for (var p in prodsSnap.docs) {
         pImages[p['productName'] ?? ''] = p['imageUrl'] ?? '';
       }
-      
-      print('=== REPORTS TOTALS ===');
-      print('Total Revenue: $tRev');
-      print('Total COGS: $tCogs');
-      print('Total Gross Profit: $tProf');
-      print('Filtered Doc Count: $sCount');
+      debugPrint('=== REPORTS TOTALS ===');
+      debugPrint('Total Revenue: $tRev');
+      debugPrint('Total COGS: $tCogs');
+      debugPrint('Total Gross Profit: $tProf');
+      debugPrint('Filtered Doc Count: $sCount');
       
       var sortedP = pStats.entries.toList()..sort((a, b) => b.value['units'].compareTo(a.value['units']));
       List<Map<String, dynamic>> tProd = sortedP.take(10).map((e) => {
@@ -319,14 +318,16 @@ class _ReportsScreenState extends State<ReportsScreen> {
         shLoss += (data['lossValue'] as num?)?.toDouble() ?? (data['estimatedLoss'] as num?)?.toDouble() ?? 0.0;
         
         final r = data['reason'] ?? '';
-        if (r.toString().toLowerCase().contains('spoil')) shSp++;
-        else if (r.toString().toLowerCase().contains('wast')) shWa++;
-        else if (r.toString().toLowerCase().contains('pilf')) shPi++;
-        else if (r.toString().toLowerCase().contains('count') || r.toString().toLowerCase().contains('error')) shCe++;
+        if (r.toString().toLowerCase().contains('spoil')) {
+          shSp++;
+        } else if (r.toString().toLowerCase().contains('wast')) { shWa++; }
+        else if (r.toString().toLowerCase().contains('pilf')) { shPi++; }
+        else if (r.toString().toLowerCase().contains('count') || r.toString().toLowerCase().contains('error')) { shCe++; }
         
         final status = data['status'] ?? 'Pending';
-        if (status == 'Pending') shPen++;
-        else if (status == 'Reviewed' || status == 'Checked') shChk++;
+        if (status == 'Pending') {
+          shPen++;
+        } else if (status == 'Reviewed' || status == 'Checked') { shChk++; }
       }
       
       // Forecasts
@@ -716,7 +717,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       clipBehavior: Clip.hardEdge,
                       child: Image.network(e['image'],
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => const Icon(
+                          errorBuilder: (_, _, _) => const Icon(
                               Icons.coffee_rounded,
                               color: _maroon)),
                     ),
@@ -1174,8 +1175,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     centerSpaceRadius: 30,
                     sections: sections,
                   ),
-                  swapAnimationDuration: const Duration(milliseconds: 1200),
-                  swapAnimationCurve: Curves.easeOutCubic,
+                  duration: const Duration(milliseconds: 1200),
+                  curve: Curves.easeOutCubic,
                 ),
               ),
               const SizedBox(width: 16),
@@ -1193,8 +1194,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     centerSpaceRadius: 35,
                     sections: sections,
                   ),
-                  swapAnimationDuration: const Duration(milliseconds: 1200),
-                  swapAnimationCurve: Curves.easeOutCubic,
+                  duration: const Duration(milliseconds: 1200),
+                  curve: Curves.easeOutCubic,
                 ),
               ),
               const SizedBox(height: 24),

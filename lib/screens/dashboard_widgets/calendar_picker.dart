@@ -30,7 +30,7 @@ class CalendarPicker extends StatelessWidget {
       children: [
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Container(color: Colors.black.withOpacity(0.3)),
+          child: Container(color: Colors.black.withValues(alpha: 0.3)),
         ),
         Center(
           child: Material(
@@ -124,7 +124,7 @@ class CalendarPicker extends StatelessWidget {
                               color: isSelected ? Colors.white : Colors.transparent,
                               border: isSelected 
                                 ? Border.all(color: const Color(0xFF6A1028), width: 1.5) 
-                                : (isToday ? Border.all(color: const Color(0xFF6A1028).withOpacity(0.3), width: 1.5) : null),
+                                : (isToday ? Border.all(color: const Color(0xFF6A1028).withValues(alpha: 0.3), width: 1.5) : null),
                             ),
                             child: Center(
                               child: Text(

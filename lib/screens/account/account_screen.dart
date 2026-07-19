@@ -757,7 +757,7 @@ class _UserFormDialogState extends State<UserFormDialog> {
                       _branchesList.isEmpty
                           ? const Center(child: CircularProgressIndicator())
                           : DropdownButtonFormField<String>(
-                              value: _branchesList.contains(branch) ? branch : (_branchesList.isNotEmpty ? _branchesList.first : null),
+                              initialValue: _branchesList.contains(branch) ? branch : (_branchesList.isNotEmpty ? _branchesList.first : null),
                               decoration: _inputDeco('Branch', Icons.store_outlined),
                               items: _branchesList.map((b) => DropdownMenuItem(value: b, child: Text(b, style: const TextStyle(fontFamily: 'Poppins')))).toList(),
                               onChanged: (v) => setState(() => branch = v!),

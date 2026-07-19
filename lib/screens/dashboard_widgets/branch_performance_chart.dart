@@ -8,7 +8,7 @@ class BranchPerformanceChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _formatBranchName(String id) {
+    String formatBranchName(String id) {
       switch (id) {
         case 'branch_1': return 'Main Branch';
         case 'branch_2': return 'Lipa Branch';
@@ -92,7 +92,7 @@ class BranchPerformanceChart extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          _formatBranchName(entry.key),
+                          formatBranchName(entry.key),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontFamily: 'Poppins',
@@ -144,7 +144,7 @@ class BranchPerformanceChart extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -164,11 +164,11 @@ class BranchPerformanceChart extends StatelessWidget {
 
     String highestBranch =
         sortedEntries.isNotEmpty && sortedEntries.first.value > 0
-        ? _formatBranchName(sortedEntries.first.key)
+        ? formatBranchName(sortedEntries.first.key)
         : 'N/A';
     String lowestBranch =
         sortedEntries.isNotEmpty && sortedEntries.last.value > 0
-        ? _formatBranchName(sortedEntries.last.key)
+        ? formatBranchName(sortedEntries.last.key)
         : 'N/A';
 
     return Container(
@@ -203,10 +203,10 @@ class BranchPerformanceChart extends StatelessWidget {
                           centerSpaceRadius: 35,
                           sections: sections,
                         ),
-                        swapAnimationDuration: const Duration(
+                        duration: const Duration(
                           milliseconds: 1200,
                         ),
-                        swapAnimationCurve: Curves.easeOutCubic,
+                        curve: Curves.easeOutCubic,
                       ),
                     ),
                     const SizedBox(width: 24),
@@ -229,10 +229,10 @@ class BranchPerformanceChart extends StatelessWidget {
                           centerSpaceRadius: 40,
                           sections: sections,
                         ),
-                        swapAnimationDuration: const Duration(
+                        duration: const Duration(
                           milliseconds: 1200,
                         ),
-                        swapAnimationCurve: Curves.easeOutCubic,
+                        curve: Curves.easeOutCubic,
                       ),
                     ),
                     const SizedBox(height: 24),

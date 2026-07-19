@@ -21,7 +21,7 @@ class TopProducts extends StatelessWidget {
         children: products.take(5).toList().asMap().entries.map((entry) {
           final idx = entry.key;
           final prod = entry.value;
-          final image = prod['image'] ?? '';
+
 
           return Container(
             margin: const EdgeInsets.only(bottom: 12),

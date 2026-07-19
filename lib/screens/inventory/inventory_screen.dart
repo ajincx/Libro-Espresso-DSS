@@ -956,8 +956,9 @@ class _AddStockDialogState extends State<_AddStockDialog> {
       final newStock = currentStock + addVal;
 
       String status = "In Stock";
-      if (newStock == 0) status = "Out of Stock";
-      else if (newStock <= minStock) status = "Low Stock";
+      if (newStock == 0) {
+        status = "Out of Stock";
+      } else if (newStock <= minStock) { status = "Low Stock"; }
 
       final batch = FirebaseFirestore.instance.batch();
       final invRef =
@@ -993,10 +994,11 @@ class _AddStockDialogState extends State<_AddStockDialog> {
             backgroundColor: Colors.green));
       }
     } catch (e) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Error: $e', style: GoogleFonts.poppins()),
             backgroundColor: Colors.red));
+      }
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -1131,8 +1133,9 @@ class _StockCountDialogState extends State<_StockCountDialog> {
       try {
         final minStock = (widget.item['minimumStock'] ?? 0.0) as num;
         String status = "In Stock";
-        if (actualVal == 0) status = "Out of Stock";
-        else if (actualVal <= minStock) status = "Low Stock";
+        if (actualVal == 0) {
+          status = "Out of Stock";
+        } else if (actualVal <= minStock) { status = "Low Stock"; }
 
         final batch = FirebaseFirestore.instance.batch();
         final invRef = FirebaseFirestore.instance
@@ -1168,10 +1171,11 @@ class _StockCountDialogState extends State<_StockCountDialog> {
               backgroundColor: Colors.green));
         }
       } catch (e) {
-        if (mounted)
+        if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Error: $e', style: GoogleFonts.poppins()),
               backgroundColor: Colors.red));
+        }
       } finally {
         if (mounted) setState(() => _isLoading = false);
       }
@@ -1378,8 +1382,9 @@ class _VarianceFormDialogState extends State<_VarianceFormDialog> {
       final minStock = (widget.item['minimumStock'] ?? 0.0) as num;
 
       String status = "In Stock";
-      if (widget.actual == 0) status = "Out of Stock";
-      else if (widget.actual <= minStock) status = "Low Stock";
+      if (widget.actual == 0) {
+        status = "Out of Stock";
+      } else if (widget.actual <= minStock) { status = "Low Stock"; }
 
       final shrinkQuery =
           await FirebaseFirestore.instance.collection('shrinkage').get();
@@ -1446,10 +1451,11 @@ class _VarianceFormDialogState extends State<_VarianceFormDialog> {
             backgroundColor: Colors.green));
       }
     } catch (e) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Error: $e', style: GoogleFonts.poppins()),
             backgroundColor: Colors.red));
+      }
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

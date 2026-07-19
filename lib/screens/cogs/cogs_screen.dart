@@ -6,7 +6,7 @@ import '../../core/session_manager.dart';
 import '../../widgets/custom_page_header.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../dashboard_widgets/calendar_picker.dart';
-import '../dashboard_widgets/bottom_nav.dart';
+
 
 class CogsScreen extends StatefulWidget {
   const CogsScreen({super.key});
@@ -530,8 +530,8 @@ class _CogsScreenState extends State<CogsScreen> with SingleTickerProviderStateM
                           centerSpaceRadius: isSmall ? 35 : 45,
                           sections: sections,
                         ),
-                        swapAnimationDuration: const Duration(milliseconds: 1200),
-                        swapAnimationCurve: Curves.easeOutCubic,
+                        duration: const Duration(milliseconds: 1200),
+                        curve: Curves.easeOutCubic,
                       ),
                     ),
                     const SizedBox(width: 24),
@@ -549,8 +549,8 @@ class _CogsScreenState extends State<CogsScreen> with SingleTickerProviderStateM
                           centerSpaceRadius: 40,
                           sections: sections,
                         ),
-                        swapAnimationDuration: const Duration(milliseconds: 1200),
-                        swapAnimationCurve: Curves.easeOutCubic,
+                        duration: const Duration(milliseconds: 1200),
+                        curve: Curves.easeOutCubic,
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -980,7 +980,7 @@ class _HoverKpiCardState extends State<_HoverKpiCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.identity()..translate(0.0, _isHovered ? -4.0 : 0.0),
+        transform: Matrix4.translationValues(0.0, _isHovered ? -4.0 : 0.0, 0.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(24),

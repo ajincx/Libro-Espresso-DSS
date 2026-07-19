@@ -113,7 +113,7 @@ class CustomPageHeader extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (trailing != null) trailing!,
+                        ?trailing,
                       ],
                     ),
                     if (bottomChild != null) ...[

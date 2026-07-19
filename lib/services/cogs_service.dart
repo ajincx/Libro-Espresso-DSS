@@ -34,6 +34,7 @@ class CogsData {
   });
 }
 
+// Aggregates cost of goods sold (COGS) data from Firestore.
 class CogsService {
   final DashboardRepository _repository = DashboardRepository();
 
@@ -84,11 +85,7 @@ class CogsService {
            applyBranchFilter = true;
         }
 
-        print('=== COGS DEBUG ===');
-        print('Selected Branch: $filterBranchName (ID: $filterBranchId)');
-        print('Selected Month: $month');
-        print('Selected Day: $day');
-        print('Total Documents retrieved: ${salesDocs.length}');
+
 
         for (var doc in salesDocs) {
           final data = doc.data() as Map<String, dynamic>;
@@ -122,8 +119,6 @@ class CogsService {
           double sRev = (data['totalAmount'] ?? 0.0).toDouble();
           double sCost = (data['cost'] ?? 0.0).toDouble();
           double sProfit = (data['grossProfit'] ?? 0.0).toDouble();
-          
-          print('Included Doc: $date | Rev: $sRev | Cost: $sCost | Profit: $sProfit');
 
           totalRevenue += sRev;
           totalCogs += sCost;
@@ -183,11 +178,6 @@ class CogsService {
         // Daily Cost Trend (FlSpot)
         List<FlSpot> dailyCostTrend = [];
         List<String> dailyCostLabels = [];
-        
-        print('=== COGS TOTALS ===');
-        print('Total Revenue: $totalRevenue');
-        print('Total COGS: $totalCogs');
-        print('Total Gross Profit: $grossProfit');
 
         var historyValues = dailyHistoryMap.values.toList();
         historyValues.sort((a, b) => (a['dateObj'] as DateTime).compareTo(b['dateObj'] as DateTime));

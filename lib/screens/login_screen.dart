@@ -551,7 +551,7 @@ class __PremiumButtonState extends State<_PremiumButton> {
 // ============================================================================
 
 class _UltraPremiumBackground extends StatelessWidget {
-  const _UltraPremiumBackground({Key? key}) : super(key: key);
+  const _UltraPremiumBackground();
 
   @override
   Widget build(BuildContext context) {

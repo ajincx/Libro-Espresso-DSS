@@ -110,7 +110,7 @@ class _TodaysGoalCardState extends State<TodaysGoalCard>
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.06),
+                color: Colors.black.withValues(alpha: 0.06),
                 blurRadius: 16,
                 offset: const Offset(0, 6),
               ),
@@ -125,7 +125,7 @@ class _TodaysGoalCardState extends State<TodaysGoalCard>
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6A1028).withOpacity(0.1),
+                      color: const Color(0xFF6A1028).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(
@@ -254,7 +254,7 @@ class _TodaysGoalCardState extends State<TodaysGoalCard>
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(0xFF6A1028)
-                                      .withOpacity(0.3),
+                                      .withValues(alpha: 0.3),
                                   blurRadius: 6,
                                   offset: const Offset(0, 2),
                                 ),
@@ -307,10 +307,10 @@ class _TodaysGoalCardState extends State<TodaysGoalCard>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF6A1028).withOpacity(0.08),
+                        color: const Color(0xFF6A1028).withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                            color: const Color(0xFF6A1028).withOpacity(0.15),
+                            color: const Color(0xFF6A1028).withValues(alpha: 0.15),
                             width: 1),
                       ),
                       child: const Text(

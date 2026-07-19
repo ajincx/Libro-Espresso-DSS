@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../core/session_manager.dart';
 
+// Handles user authentication with Firestore.
 class AuthService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // Validates user credentials during login.
   static Future<void> signIn(String email, String password) async {
     final querySnapshot = await _firestore
         .collection('users')
@@ -26,7 +28,6 @@ class AuthService {
       throw Exception('Account is inactive.');
     }
 
-    // Authentication successful, establish session
     SessionManager().setSession(
       id: userDoc.id,
       name: userData['displayName'] ?? 'Unknown',
@@ -36,6 +37,7 @@ class AuthService {
     );
   }
 
+  // Clears the current user session on sign out.
   static void signOut() {
     SessionManager().clearSession();
   }
