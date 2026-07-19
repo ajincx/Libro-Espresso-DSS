@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473177345955",
+    "project_id": "libro-espresso-dss",
+    "storage_bucket": "libro-espresso-dss.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473177345955:android:661f28e6ed3a28e6fe1416",
+        "android_client_info": {
+          "package_name": "com.example.libro_espresso_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSBrLxx0ojvThZMvE45V8ORNnsBgDl5Xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

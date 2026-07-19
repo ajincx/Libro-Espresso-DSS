@@ -1,0 +1,129 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Function to get user data from users collection
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    // Function to check if user is an owner
+    function isOwner() {
+      return isAuthenticated() && getUserData().role == 'owner';
+    }
+    
+    // Function to check if user is a manager
+    function isManager() {
+      return isAuthenticated() && getUserData().role == 'manager';
+    }
+    
+    // Function to check if manager is assigned to the specific branch
+    function isManagerOfBranch(branchId) {
+      return isManager() && getUserData().assignedBranchId == branchId;
+    }
+    
+    // Function to check if user has access to a branch (Owner or Assigned Manager)
+    function hasBranchAccess(branchId) {
+      return isOwner() || isManagerOfBranch(branchId);
+    }
+    
+    // USERS COLLECTION
+    match /users/{userId} {
+      // Users can read their own data. Owners can read all users.
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isOwner());
+      // Only owners can create/update/delete users.
+      allow write: if isOwner();
+    }
+    
+    // BRANCHES COLLECTION
+    match /branches/{branchId} {
+      // Owners can read all branches. Managers can read their assigned branch.
+      allow read: if hasBranchAccess(branchId);
+      // Only owners can modify branches
+      allow write: if isOwner();
+    }
+    
+    // PRODUCTS COLLECTION
+    match /products/{productId} {
+      // Both Owners and Managers can read products (assuming products are global)
+      allow read: if isAuthenticated();
+      allow write: if isOwner();
+    }
+    
+    // INGREDIENTS COLLECTION
+    match /ingredients/{ingredientId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner();
+    }
+    
+    // RECIPES COLLECTION
+    match /recipes/{recipeId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner();
+    }
+    
+    // SALES COLLECTION
+    match /sales/{saleId} {
+      // Users can read sales of their branch or all if owner
+      allow read: if isOwner() || isManagerOfBranch(resource.data.branchId);
+      // Both owners and branch managers can write sales for their branch
+      allow create: if isOwner() || isManagerOfBranch(request.resource.data.branchId);
+      allow update, delete: if isOwner();
+    }
+    
+    // INVENTORY COUNTS COLLECTION
+    match /inventory_counts/{countId} {
+      allow read: if isOwner() || isManagerOfBranch(resource.data.branchId);
+      allow create: if isOwner() || isManagerOfBranch(request.resource.data.branchId);
+      allow update, delete: if isOwner();
+    }
+    
+    // INVENTORY MOVEMENTS COLLECTION
+    match /inventory_movements/{movementId} {
+      allow read: if isOwner() || isManagerOfBranch(resource.data.branchId);
+      allow create: if isOwner() || isManagerOfBranch(request.resource.data.branchId);
+      allow update, delete: if isOwner();
+    }
+    
+    // FORECASTS COLLECTION
+    match /forecasts/{forecastId} {
+      allow read: if isOwner() || isManagerOfBranch(resource.data.branchId);
+      // Forecasts are likely created by backend functions, but owner can modify
+      allow write: if isOwner();
+    }
+    
+    // AI INSIGHTS COLLECTION
+    match /ai_insights/{insightId} {
+      allow read: if isOwner() || isManagerOfBranch(resource.data.branchId);
+      allow write: if isOwner();
+    }
+    
+    // NOTIFICATIONS COLLECTION
+    match /notifications/{notificationId} {
+      // Users can read their own notifications or branch notifications
+      allow read: if isOwner() || 
+                     (isAuthenticated() && resource.data.userId == request.auth.uid) ||
+                     (isAuthenticated() && resource.data.branchId != null && isManagerOfBranch(resource.data.branchId));
+      // Managers can mark read
+      allow update: if isOwner() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create, delete: if isOwner();
+    }
+    
+    // REPORTS COLLECTION
+    match /reports/{reportId} {
+      allow read: if isOwner() || isManagerOfBranch(resource.data.branchId);
+      allow write: if isOwner();
+    }
+    
+    // SETTINGS COLLECTION
+    match /settings/{settingId} {
+      // Only owners can read/write global settings
+      allow read, write: if isOwner();
+    }
+  }
+}
